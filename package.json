@@ -14,6 +14,14 @@
   "author": "chathura priyashan",
   "type": "commonjs",
   "main": "index.js",
+  "repository" : {
+    "type": "git",
+    "url": "git+https://github.com/chathurapriyashan/low-poly-3d.git"
+  },
+  "homepage": "https://github.com/username/low-poly-3d#readme",
+  "bugs": {
+    "url": "https://github.com/username/low-poly-3d/issues"
+  },
   "vscode": {
     "extensions": [
       "chathurapriyashan.low-poly-3d-glsl"

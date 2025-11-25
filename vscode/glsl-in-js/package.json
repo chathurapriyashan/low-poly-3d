@@ -2,7 +2,7 @@
   "name": "glsl-in-js",
   "displayName": "GLSL in JS",
   "version": "1.0.0",
-  "publisher": "chathura priyashan",
+  "publisher": "ChathuraPriyashan",
   "engines": {
     "vscode": "^1.50.0"
   },

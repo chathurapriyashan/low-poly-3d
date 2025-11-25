@@ -1,3 +1,3 @@
 export default function glsl(string , params){
-    return string.join(' ');
+    return '#version 300 es\n'+string.join(' ');
 }

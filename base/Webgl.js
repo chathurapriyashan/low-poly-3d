@@ -1,6 +1,10 @@
 import Program from "./Program.js";
 import * as glMatrix from "./../../node_modules/gl-matrix/esm/index.js";
 import Vertical from "./Vertical.js";
+import Color from "./Color.js";
+import Ambient from "../lights/Ambient.js";
+import Light from "../lights/Light.js";
+import Lights from "./Lights.js";
 
 export default class WebGl{
     /**
@@ -14,11 +18,23 @@ export default class WebGl{
      */
     program = undefined;
 
+    /**
+     * @type {HTMLCanvasElement}
+     */
+    canvas = undefined;
+
+    /**
+     * @type {Lights}
+     */
+    lights = undefined;
+
 
     constructor(canvas){
         this.canvas = canvas;
         this.initGl();
     }
+
+    static color = Color;
 
     init(){
         // this.createProgram();
@@ -27,11 +43,15 @@ export default class WebGl{
 
     initGl(){
         if(this.gl) return this.gl;
-        this.gl = this.canvas.getContext('webgl');
+        this.gl = this.canvas.getContext('webgl2');
         this.glClear();
         this.createProgram();
-        // this.initProgram();
+        this.initLights();
         return this.gl;
+    }
+
+    initLights(){
+        this.lights = new Lights(this.gl);
     }
 
     glClear(){
@@ -45,7 +65,7 @@ export default class WebGl{
         this.gl.compileShader(shader);
 
         if(!this.gl.getShaderParameter(shader , this.gl.COMPILE_STATUS)){
-            throw new Error(`${shaderType}: not compiled` , this.gl.getShaderInfoLog(shader))
+            throw new Error(`${shaderType}: not compiled  ${this.gl.getShaderInfoLog(shader)}`);
         }
 
         return shader;
@@ -63,9 +83,10 @@ export default class WebGl{
 
     }
 
-    createProjectionMatrix(fov , zNear=0.1 , zFar=100 , aspectRatio=1){
+    createProjectionMatrix(fov=45 , zNear=0.1 , zFar=100 , aspectRatio=1){
+        const radiantFov = fov * Math.PI / 180;
         const projectionMatrix = glMatrix.mat4.create();
-        glMatrix.mat4.perspective(projectionMatrix , fov , aspectRatio , zNear , zFar);
+        glMatrix.mat4.perspective(projectionMatrix , radiantFov , aspectRatio , zNear , zFar);
         return projectionMatrix;
     }
 
@@ -84,25 +105,43 @@ export default class WebGl{
         this.program.linkShaders();
     }
 
+    glMatrix = glMatrix;
+
 
     vertical(x , y ,z){
         return new Vertical(x , y ,z);
     }
 
-    verticalsArray(verticals){
-        const array = new Float32Array(verticals.length * 3);
-        verticals.forEach((v , i)=> {
-            array[i* 3 + 0] = v.x;
-            array[i* 3 + 1] = v.y;
-            array[i* 3 + 2] = v.z;
-        })
+    /**
+     * 
+     * @param {number} r  - between 0 - 255
+     * @param {number} g  - between 0 - 255
+     * @param {number} b  - between 0 - 255
+     * @param {number} a  - between 0 - 255
+     */
+    
 
-        return array;
-    }
+    dataBuffer(points){
+        let numberOfElements = 0;
+        const data = points.map((p , i)=> {
+            const pData =  p.float32();
+            numberOfElements += pData.length;
+            return [pData.length ,pData];
+        });
 
-    render(){
-        this.glClear();
-        this.enableDepth();
+        const dataArray = new Float32Array(numberOfElements);
+
+        let currentProcessing = 0;
+        data.forEach(p=>{
+            const size = p[0];
+            for(let i=0 ; i < size ; i++){
+                dataArray[currentProcessing] = p[1][i];
+                currentProcessing += 1;
+            }
+        });
+
+        return dataArray;
     }
+    
 
 }
