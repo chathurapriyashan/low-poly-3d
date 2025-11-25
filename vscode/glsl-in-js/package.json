@@ -1,0 +1,22 @@
+{
+  "name": "glsl-in-js",
+  "displayName": "GLSL in JS",
+  "version": "1.0.0",
+  "publisher": "chathura priyashan",
+  "engines": {
+    "vscode": "^1.50.0"
+  },
+  "contributes": {
+    "grammars": [
+      {
+        "language": "javascript",
+        "scopeName": "glsl.embedded",
+        "path": "./syntaxes/glsl-injection.json",
+        "injectTo": ["source.js", "source.ts", "source.jsx", "source.tsx"],
+        "embeddedLanguages": {
+          "meta.embedded.glsl": "glsl"
+        }
+      }
+    ]
+  }
+}

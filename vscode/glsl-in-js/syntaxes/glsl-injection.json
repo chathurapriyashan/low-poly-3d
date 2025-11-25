@@ -1,0 +1,14 @@
+{
+  "scopeName": "glsl.embedded",
+  "injectionSelector": "L:source.js",
+  "patterns": [
+    {
+      "name": "meta.embedded.glsl",
+      "begin": "(Canvas\\.lint\\.glsl)\\s*`",
+      "end": "`",
+      "patterns": [
+        { "include": "source.glsl" }
+      ]
+    }
+  ]
+}
