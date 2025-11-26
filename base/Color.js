@@ -1,6 +1,13 @@
 export default class Color{
     #colors = new Float32Array(4);
 
+    /**
+     * 
+     * @param {number} r  - expected to be 0 - 1
+     * @param {number} g  - expected to be 0 - 1
+     * @param {number} b  - expected to be 0 - 1
+     * @param {number} a  - expected to be 0 - 1
+     */
     constructor (r , g , b, a){
         this.r = r;
         this.g = g;
@@ -21,18 +28,28 @@ export default class Color{
      * @param {number} r - expected to be 0 - 255 
      * @param {number} g - expected to be 0 - 255 
      * @param {number} b - expected to be 0 - 255 
+     * @returns {Color}
      */
     static rgb(r , g , b){
         return new Color(r/255 , g / 255 , b/255 , 1.0);
     }
+
+    /**
+     * 
+     * @param {number} r - expected to be 0 - 255 
+     * @param {number} g - expected to be 0 - 255 
+     * @param {number} b - expected to be 0 - 255 
+     * @param {number} a - expected to be 0 - 1 
+     * @returns {Color}
+     */
     static rgba(r , g , b , a){
         return new Color(r/255 , g / 255 , b/255 , a);
     }
 
-    static hsl(){
-        
-    }
-
+    /**
+     * 
+     * @returns {Float32Array[4]}
+     */
     float32(){
         return this.#colors;
     }

@@ -11,6 +11,10 @@ export default class Vertical{
         this.#verticals[2] = z;
     }
 
+    /**
+     * 
+     * @returns {Float32Array[3]}
+     */
     float32(){
         return this.#verticals;
     }

@@ -6,15 +6,15 @@
     "chathura",
     "priayashan",
     "glsl",
-    "shader", 
-    "webgl", 
+    "shader",
+    "webgl",
     "low-poly"
   ],
   "license": "ISC",
   "author": "chathura priyashan",
   "type": "commonjs",
   "main": "index.js",
-  "repository" : {
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/chathurapriyashan/low-poly-3d.git"
   },
@@ -26,7 +26,8 @@
     "extensions": [
       "chathurapriyashan.low-poly-3d-glsl"
     ]
+  },
+  "dependencies": {
+    "gl-matrix": "^3.4.4"
   }
 }
-
-
