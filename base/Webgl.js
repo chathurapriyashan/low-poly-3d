@@ -1,5 +1,5 @@
 import Program from "./Program.js";
-import * as glMatrix from "./../node_modules/gl-matrix/esm/index.js";
+import * as glMatrix from "gl-matrix";
 import Vertical from "./Vertical.js";
 import Color from "./Color.js";
 import Ambient from "../lights/Ambient.js";
